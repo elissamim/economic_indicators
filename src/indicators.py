@@ -47,16 +47,18 @@ def lorenz_curve(x:Sequence[float]) -> None:
            [0,1],
            color="green")
 
-def hhi(x:Sequence[float]) -> float:
+def hhi(x:Sequence[float],
+       normalize:bool=False) -> float:
     """
     Return the Herfindahl-Hirschman index of an array.
 
     Args:
-        x (Sequence[float]): Sequence of market shares in percentages.
+        x (Sequence[float]): Sequence of market shares.
+        normalize (bool, optional): If set to True, the HHI is normalized. Defaults to False.
 
     Returns:
-        float: The Herfindahl-Hirschman index of an array between 0 and 10.000.
-                Above 2500 : highly concentrated market.
+        float: The Herfindahl-Hirschman index of an array between 0 and 1 (or 10.000 if a value is above 1).
+                Above 0.25 (or 2500) : highly concentrated market.
     """
 
     x=np.array(x, dtype=float).flatten()
