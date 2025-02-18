@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import warnings
 from typing import Sequence
 
 def gini_index(x:Sequence[float]) -> float:
@@ -61,9 +62,30 @@ def hhi(x:Sequence[float],
                 Above 0.25 (or 2500) : highly concentrated market.
     """
 
-    x=np.array(x, dtype=float).flatten()
+    x = np.array(x)
 
-    return sum([share**2 for share in x])
+    if x.ndim != 1:
+        raise ValueError("""The market shares data provided should be one-dimensional.""")
+
+    if (x < 0).any():
+        raise ValueError("""Some market shares provided are strictly negative.""")
+
+    if np.isnan(x).any():
+        raise ValueError("""Some market shares provided are missing.""")
+
+    if np.sum(x) > 1:
+        warnings.warn("""Market shares are expressed in % as the sum
+                     of market shares is strictly higher than 1""", 
+                      UserWarning)
+
+    # Compute HHI with normalization if necessary.
+    if normalize == False:
+        hhi = np.sum(x**2)
+    else:
+        n = len(x)
+        hhi = (np.sum(x**2)-1/n)/(1-1/n)
+
+    return hhi
 
 def concentration_ratio(x:Sequence[float], n:int=3) -> float:
     """
