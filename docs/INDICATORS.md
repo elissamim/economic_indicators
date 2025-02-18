@@ -11,6 +11,8 @@ L'indice de Herfindahl-Hirschman est calculé en additionnant les carrés des pa
 
 Le HHI varie de 0 à 1, lorsque les parts de marché sont fournies en pourcentage, le HHI varie de 0 à 10 000.
 
+
+
 # Theil Index
 
-# Entropy measures
+# Shannon Entropy
