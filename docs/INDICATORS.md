@@ -3,7 +3,7 @@
 
 # Lorenz curve
 
-# Concentration Ratio (CR)
+# Concentration Ratio ($CR_{n}$)
 
 # Herfindahl-Hirschman Index (HHI)
 
