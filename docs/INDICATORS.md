@@ -11,6 +11,8 @@ L'indice de Herfindahl-Hirschman est calculé en additionnant les carrés des pa
 
 Le $HHI$ varie de 0 à 1, lorsque les parts de marché sont fournies en pourcentage, le HHI varie de 0 à 10 000.
 
+De manière générale, plus le $HHI$ tend vers 1 (ou 10 000), plus le marché dispose d'une tendance monopolistique.
+
 Un $HHI$ normalisé existe également, assurant des valeurs d'indice comprises entre 0 et 1, quelque soient les données d'entrée. La formule du $HHI$ normalisée est : $\hat{HHI}=\frac{HHI-\frac{1}{n}}{1-\frac{1}{n}}$
 
 
