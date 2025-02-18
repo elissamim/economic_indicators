@@ -51,39 +51,53 @@ def lorenz_curve(x:Sequence[float]) -> None:
 def hhi(x:Sequence[float],
        normalize:bool=False) -> float:
     """
-    Return the Herfindahl-Hirschman index of an array.
+    Compute the Herfindahl-Hirschman Index (HHI) for market concentration.
 
     Args:
-        x (Sequence[float]): Sequence of market shares.
-        normalize (bool, optional): If set to True, the HHI is normalized. Defaults to False.
+        x (Sequence[float]): A 1D sequence of market shares (values between 0 and 1).
+        normalize (bool, optional): If True, HHI is normalized to range from 0 to 1.
+                                    Defaults to False (returns standard HHI).
 
     Returns:
-        float: The Herfindahl-Hirschman index of an array between 0 and 1 (or 10.000 if a value is above 1).
-                Above 0.25 (or 2500) : highly concentrated market.
+        float: The HHI value. 
+               - If `normalize=False`, HHI ranges from 0 (perfect competition) to 1 (monopoly).
+               - If `normalize=True`, HHI is adjusted to account for the number of firms.
+               - If shares are mistakenly given as percentages (>1 sum), a warning is raised.
+
+    Raises:
+        ValueError: If `x` is not a 1D array, contains negative values, or NaN values.
+        ValueError: If normalization is applied with regard to only one company.
     """
 
-    x = np.array(x)
+    x = np.array(x, dtype=np.float64)
 
+    # Check if x is 1D array
     if x.ndim != 1:
         raise ValueError("""The market shares data provided should be one-dimensional.""")
 
+    # Check if all market shares are positive
     if (x < 0).any():
         raise ValueError("""Some market shares provided are strictly negative.""")
 
+    # Check if data is missing
     if np.isnan(x).any():
-        raise ValueError("""Some market shares provided are missing.""")
+        raise ValueError("""Some market shares provided are missing (NaN values).""")
 
-    if np.sum(x) > 1:
-        warnings.warn("""Market shares are expressed in % as the sum
-                     of market shares is strictly higher than 1""", 
+    # Warn about shares in percentage
+    if np.sum(x) > 1.01:
+        warnings.warn("""Market shares seem expressed in % as the sum
+                      of market shares is strictly higher than 1.""", 
                       UserWarning)
 
-    # Compute HHI with normalization if necessary.
-    if normalize == False:
-        hhi = np.sum(x**2)
-    else:
+    # Compute HHI with normalization if necessary
+    hhi = np.sum(x**2)
+
+    if normalize:
         n = len(x)
-        hhi = (np.sum(x**2)-1/n)/(1-1/n)
+        if n > 1:
+            hhi = (hhi-1/n)/(1-1/n)
+        else:
+            raise ValueError("""Normalization is not meaningful with only 1 company (zero-division in formula).""")
 
     return hhi
 
