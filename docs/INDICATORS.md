@@ -7,13 +7,13 @@
 
 # Herfindahl-Hirschman Index (HHI)
 
-L'indice de Herfindahl-Hirschman est calculé en additionnant les carrés des parts de marché de chaque entreprise en concurrence sur un marché : $HHI=\sum_{i=1}^{n} s_{i}^{2}$ où $s_{i}$ est la part de marché de l'entreprise $i$ et $n$ le nombre d'entreprises du marché. Ainsi, pour un marché détenu par deux entreprises de parts de marché 30% et 70%, le $HHI$ vaut $HHI=0,3^{2}+0,7^{2}=0,09+0,49=0,58$.
+The Herfindahl-Hirschman Index is calculated by summing the squares of the market shares of each company competing in a market: $HHI=\sum_{i=1}^{n} s_{i}^{2}$ where $s_{i}$ is the market share of company $i$ and $n$ is the number of companies in the market. Thus, for a market held by two companies with market shares of 30% and 70%, the $HHI$ is $HHI=0,3^{2}+0,7^{2}=0,09+0,49=0,58$.
 
-Le $HHI$ varie de 0 à 1, lorsque les parts de marché sont fournies en pourcentage, le HHI varie de 0 à 10 000. Usuellement, au-dessus d'un seuil de 0,25 (ou 2 500), le marché est considéré comme concentré.
+The $HHI$ ranges from 0 to 1, and when market shares are provided as percentages, the HHI ranges from 0 to 10,000. Typically, above a threshold of 0.25 (or 2,500), the market is considered concentrated.
 
-De manière générale, plus le $HHI$ tend vers 1 (ou 10 000), plus le marché dispose d'une tendance monopolistique.
+In general, the closer the $HHI$ is to 1 (or 10,000), the more monopolistic the market is.
 
-Un $HHI$ normalisé existe également, assurant des valeurs d'indice comprises entre 0 et 1, quelque soient les données d'entrée. La formule du $HHI$ normalisée est : $\hat{HHI}=\frac{HHI-\frac{1}{n}}{1-\frac{1}{n}}$
+A normalized $HHI$ also exists, ensuring index values between 0 and 1, regardless of the input data. The formula for the normalized $HHI$ is: $\hat{HHI}=\frac{HHI-\frac{1}{n}}{1-\frac{1}{n}}$
 
 
 # Theil Index
