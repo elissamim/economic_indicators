@@ -49,7 +49,8 @@ def lorenz_curve(x:Sequence[float]) -> None:
            color="green")
 
 def hhi(x:Sequence[float],
-       normalize:bool=False) -> float:
+       normalize:bool=False,
+       verbose:bool=False) -> float:
     """
     Compute the Herfindahl-Hirschman Index (HHI) for market concentration.
 
@@ -57,7 +58,9 @@ def hhi(x:Sequence[float],
         x (Sequence[float]): A 1D sequence of market shares (values between 0 and 1).
         normalize (bool, optional): If True, HHI is normalized to range from 0 to 1.
                                     Defaults to False (returns standard HHI).
-
+        verbose (bool, optional): If True, additional information is printed during the computation. 
+                                  Defaults to False.
+                                    
     Returns:
         float: The HHI value. 
                - If `normalize=False`, HHI ranges from 0 (perfect competition) to 1 (monopoly).
@@ -89,15 +92,29 @@ def hhi(x:Sequence[float],
                       of market shares is strictly higher than 1.""", 
                       UserWarning)
 
+    if verbose:
+        print("""
+            HHI higher than 0.25 (or 2500 for percentage data)
+            means high level of concentration
+            """)
+        print(f"Sum of market shares : {np.sum(x)}")
+
     # Compute HHI with normalization if necessary
     hhi = np.sum(x**2)
 
     if normalize:
+
+        if verbose:
+            print(f"Unnormalized HHI : {hhi}")
+            
         n = len(x)
         if n > 1:
             hhi = (hhi-1/n)/(1-1/n)
         else:
             raise ValueError("""Normalization is not meaningful with only 1 company (zero-division in formula).""")
+
+        if verbose:
+            print(f"Normalized HHI : {hhi}")
 
     return hhi
 
