@@ -91,7 +91,7 @@ def hhi(x:Sequence[float],
         raise ValueError("""Some market shares provided are missing (NaN values).""")
 
     # Warn about shares in percentage
-    if np.sum(x) > 1.01:
+    if np.sum(x) > 1:
         warnings.warn("""Market shares seem expressed in % as the sum
                       of market shares is strictly higher than 1.""", 
                       UserWarning)
@@ -124,13 +124,15 @@ def hhi(x:Sequence[float],
 
     return hhi
 
-def concentration_ratio(x:Sequence[float], k:int=3) -> float:
+def concentration_ratio(x:Sequence[float], 
+                        k:int=3,
+                        verbose:bool=False) -> float:
     """
     Return the concentration ratio of a market for a parameter n.
 
     Args:
         x (Sequence[float]): Sequence of market shares.
-        k (int, Optional): Number of companies to consider as top k market shares.
+        k (int, optional): Number of companies to consider as top k market shares.
 
     Returns:
         float: Concentration ratio from 0 to 0.4 competitive market,
@@ -157,9 +159,22 @@ def concentration_ratio(x:Sequence[float], k:int=3) -> float:
 
     # Check if k is a strictly positive integer
     if not isinstance(k, int) or k <= 0:
-        raise ValueError("""""")
+        raise ValueError("""Parameter `k` must be a strictly positive integer.""")
 
-    # Sort market shares in ascending order
+    # Limit k to the total number of companies
+    # in case where k is higher than this total number
+    if verbose and (k > x.size):
+        print(f"Parameter `k` with value {k} is higher than total number of companies {x.size} and will be limited to {x.size}")
+
+    k = min(k, x.size)
+
+    # Check if market shares are given in %
+    if np.sum(x) > 1:
+        warnings.warn("""Market shares seem expressed in % as the sum
+                      of market shares is strictly higher than 1.""", 
+                      UserWarning)
+
+    # Get the k largest market shares
     x.sort()
 
     # Return the sum of the k-largest market shares.
