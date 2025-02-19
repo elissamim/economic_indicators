@@ -1,4 +1,4 @@
-# economic_indicators
+# Economic Indicators in Python for market concentration
 Python Package for Economic Indicators.
 
 This repo contains implementations of several economic indicators in Python, including:
