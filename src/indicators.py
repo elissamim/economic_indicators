@@ -133,10 +133,12 @@ def concentration_ratio(x:Sequence[float],
     Args:
         x (Sequence[float]): Sequence of market shares.
         k (int, optional): Number of companies to consider as top k market shares.
+        verbose (bool, optional): If True, additional information is printed during the computation. 
+                                  Defaults to False.
 
     Returns:
         float: Concentration ratio from 0 to 0.4 competitive market,
-            from 0.4 to 0.7 medium concentration, from 0.7 to 1 high concentration.
+                from 0.4 to 0.7 medium concentration, from 0.7 to 1 high concentration.
     """
     
     x=np.array(x, dtype=np.float64)
@@ -175,10 +177,11 @@ def concentration_ratio(x:Sequence[float],
                       UserWarning)
 
     # Get the k largest market shares
-    x.sort()
+    # We use np.partition for O(n) time complexity
+    top_k=np.partition(x, -k)[-k:]
 
     # Return the sum of the k-largest market shares.
-    return x[-k:].sum()
+    return np.sum(top_k)
 
 def shannon_entropy(x:Sequence[float],
                    verbose:bool=False) -> float:
