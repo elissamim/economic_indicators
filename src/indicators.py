@@ -134,9 +134,24 @@ def concentration_ratio(x:Sequence[float], k:int=3) -> float:
             
     """
     
-    x=np.array(x, dtype=np.float64).flatten()
+    x=np.array(x, dtype=np.float64)
+
+    # Check if x is 1D array
+    if x.ndim != 1:
+        raise ValueError("""The market shares data provided should be one-dimensional.""")
+
+    # Check if all market shares are positive
+    if (x < 0).any():
+        raise ValueError("""Some market shares provided are strictly negative.""")
+
+    # Check if data is missing
+    if np.isnan(x).any():
+        raise ValueError("""Some market shares provided are missing (NaN values).""")
+
+    # Sort market shares in ascending order
     x.sort()
 
+    # Return the sum of the k-largest market shares.
     return x[-k:].sum()
 
 def shannon_entropy(x:Sequence[float],
