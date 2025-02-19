@@ -40,6 +40,12 @@ In general, the closer the $HHI$ is to 1 (or 10,000), the more monopolistic the 
 
 A normalized $HHI$ also exists, ensuring index values between 0 and 1, regardless of the input data. The formula for the normalized $HHI$ is: $\hat{HHI}=\frac{HHI-\frac{1}{n}}{1-\frac{1}{n}}$
 
+# Shannon entropy
+
+Shannon entropy is a useful measure for market concentration because it quantifies the diversity in a market, the lower the entropy, the higher is the concentration. The formula of the Shannon entropy is given by : $-\sum_{i=1}^{n}s_{i}\ln(s_{i})$. When the entropy is 0 the market is in a situation of monopoly, when the entropy is $\ln(n)$, the market is in a situation of perfect competition.
+
+Shannon entropy is defined for probability densities, so at least one market share should be different from 0.
+
 # Theil Index
 
 The Theil Index is an entropy-based measure of concentration in a market that:
@@ -48,11 +54,5 @@ The Theil Index is an entropy-based measure of concentration in a market that:
 - entropy-based : it accounts for information theory principles, making it more theoretically grounded
 
 The Theil Index is given by: $\frac{1}{n}\sum_{i=1}^{n}(\frac{s_{i}}{\overline{s}})\ln(\frac{s_{i}}{\overline{s}})$
-
-# Shannon entropy
-
-Shannon entropy is a useful measure for market concentration because it quantifies the diversity in a market, the lower the entropy, the higher is the concentration. The formula of the Shannon entropy is given by : $-\sum_{i=1}^{n}s_{i}\ln(s_{i})$. When the entropy is 0 the market is in a situation of monopoly, when the entropy is $\ln(n)$, the market is in a situation of perfect competition.
-
-Shannon entropy is defined for probability densities, so at least one market share should be different from 0.
 
 
