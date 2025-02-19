@@ -55,4 +55,6 @@ The Theil Index is an entropy-based measure of concentration in a market that:
 
 The Theil Index is given by: $\frac{1}{n}\sum_{i=1}^{n}(\frac{s_{i}}{\overline{s}})\ln(\frac{s_{i}}{\overline{s}})$
 
+A Theil Index close to 0 indicates a highly competitive market, the higher the Theil Index is the more concentrated the market is.
+
 
