@@ -120,7 +120,7 @@ def hhi(x:Sequence[float],
 
     return hhi
 
-def concentration_ratio(x:Sequence[float], n:int=3) -> float:
+def concentration_ratio(x:Sequence[float], k:int=3) -> float:
     """
     Return the concentration ratio of a market for a parameter n.
 
@@ -133,7 +133,33 @@ def concentration_ratio(x:Sequence[float], n:int=3) -> float:
             from 0.4 to 0.7 medium concentration, from 0.7 to 1 high concentration.
     """
     
-    x=np.array(x, dtype=float).flatten()
+    x=np.array(x, dtype=np.float64).flatten()
     x.sort()
 
-    return x[-n:].sum()
+    return x[-k:].sum()
+
+def shannon_entropy(x:Sequence[float]) -> float:
+
+    x=np.array(x, dtype=np.float64)
+
+    # Check if x is 1D array
+    if x.ndim != 1:
+        raise ValueError("""The market shares data provided should be one-dimensional.""")
+
+    # Check if all market shares are positive
+    if (x < 0).any():
+        raise ValueError("""Some market shares provided are strictly negative.""")
+
+    # Check if data is missing
+    if np.isnan(x).any():
+        raise ValueError("""Some market shares provided are missing (NaN values).""")
+
+    # Normalize data for Shannon entropy to be a probability distribution
+    # As we assume all data is non negative it should sum up to 1
+    if np.sum(x) > 0:
+        x=x/np.sum(x)
+
+    # When 0 are in the data don't comput log only return 0
+    return -np.sum(np.where(x>0,x*np.log(x), 0))
+
+    
