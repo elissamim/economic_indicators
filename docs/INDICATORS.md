@@ -5,6 +5,8 @@
 
 # Concentration Ratio ($CR_{n}$)
 
+A concentration ratio
+
 # Herfindahl-Hirschman Index (HHI)
 
 The Herfindahl-Hirschman Index is calculated by summing the squares of the market shares of each company competing in a market: $HHI=\sum_{i=1}^{n} s_{i}^{2}$ where $s_{i}$ is the market share of company $i$ and $n$ is the number of companies in the market. Thus, for a market held by two companies with market shares of 30% and 70%, the $HHI$ is $HHI=0,3^{2}+0,7^{2}=0,09+0,49=0,58$.
