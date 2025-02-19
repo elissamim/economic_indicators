@@ -1,7 +1,7 @@
 # Economic Indicators in Python for market concentration
 Python Package for Economic Indicators.
 
-This repo contains implementations of several economic indicators in Python, including:
+This repo contains implementations of several economic indicators for market concentration in Python, including:
 - Gini Index
 - Lorenz Curve
 - Hoover Index
