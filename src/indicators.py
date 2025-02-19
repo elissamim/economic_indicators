@@ -1,9 +1,11 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import warnings
 from typing import Sequence
 
-def gini_index(x:Sequence[float]) -> float:
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def gini_index(x: Sequence[float]) -> float:
     """
     Return the Gini Index of an array.
 
@@ -14,43 +16,43 @@ def gini_index(x:Sequence[float]) -> float:
         float: The Gini Index between 0 for perfect equality and 1 for perfect inequality.
     """
 
-    sorted_x=np.array(x,dtype=float).flatten().copy()
+    sorted_x = np.array(x, dtype=float).flatten().copy()
     sorted_x.sort()
-    n=x.size
-    coef=2/n
-    const=(n+1)/n
-    weighted_sum=sum([i*y for i,y in enumerate(sorted_x)])
-    return coef*weighted_sum/sorted_x.sum()-const
+    n = x.size
+    coef = 2 / n
+    const = (n + 1) / n
+    weighted_sum = sum([i * y for i, y in enumerate(sorted_x)])
+    return coef * weighted_sum / sorted_x.sum() - const
 
-def lorenz_curve(x:Sequence[float]) -> None:
+
+def lorenz_curve(x: Sequence[float]) -> None:
     """
     Plot the Lorenz Curve of an array.
 
     Args:
         x (Sequence[float]): Sequence of market shares.
-        
+
     Returns:
         None.
     """
 
-    sorted_x=np.array(x,dtype=float).flatten().copy()
+    sorted_x = np.array(x, dtype=float).flatten().copy()
     sorted_x.sort()
-    lorenz_x=sorted_x.cumsum()/sorted_x.sum()
-    lorenz_x=np.insert(lorenz_x, 0, 0)
+    lorenz_x = sorted_x.cumsum() / sorted_x.sum()
+    lorenz_x = np.insert(lorenz_x, 0, 0)
 
-    fig, ax=plt.subplots(figsize=[6,6])
-    ax.scatter(np.arange(lorenz_x.size)/(lorenz_x.size-1),
-              lorenz_x,
-              marker="x",
-              color="orange",
-              s=100)
-    ax.plot([0,1],
-           [0,1],
-           color="green")
+    fig, ax = plt.subplots(figsize=[6, 6])
+    ax.scatter(
+        np.arange(lorenz_x.size) / (lorenz_x.size - 1),
+        lorenz_x,
+        marker="x",
+        color="orange",
+        s=100,
+    )
+    ax.plot([0, 1], [0, 1], color="green")
 
-def hhi(x:Sequence[float],
-       normalize:bool=False,
-       verbose:bool=False) -> float:
+
+def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> float:
     """
     Compute the Herfindahl-Hirschman Index (HHI) for market concentration.
 
@@ -58,11 +60,11 @@ def hhi(x:Sequence[float],
         x (Sequence[float]): A 1D sequence of market shares (values between 0 and 1).
         normalize (bool, optional): If True, HHI is normalized to range from 0 to 1.
                                     Defaults to False (returns standard HHI).
-        verbose (bool, optional): If True, additional information is printed during the computation. 
+        verbose (bool, optional): If True, additional information is printed during the computation.
                                   Defaults to False.
-                                    
+
     Returns:
-        float: The HHI value. 
+        float: The HHI value.
                - If `normalize=False`, HHI ranges from 0 (perfect competition) to 1 (monopoly).
                - If `normalize=True`, HHI is adjusted to account for the number of firms.
                - If shares are mistakenly given as percentages (>1 sum), a warning is raised.
@@ -76,7 +78,9 @@ def hhi(x:Sequence[float],
 
     # Check if x is 1D array
     if x.ndim != 1:
-        raise ValueError("""The market shares data provided should be one-dimensional.""")
+        raise ValueError(
+            """The market shares data provided should be one-dimensional."""
+        )
 
     # Check if x is empty
     if x.size == 0:
@@ -92,17 +96,21 @@ def hhi(x:Sequence[float],
 
     # Warn about shares in percentage
     if np.sum(x) > 1:
-        warnings.warn("""Market shares seem expressed in % as the sum
-                      of market shares is strictly higher than 1.""", 
-                      UserWarning)
+        warnings.warn(
+            """Market shares seem expressed in % as the sum
+                      of market shares is strictly higher than 1.""",
+            UserWarning,
+        )
 
     if verbose:
-        print("""
+        print(
+            """
             The sum of market shares should be 1, or 100 when market
             shares are provided in %. 
             HHI higher than 0.25 (or 2500 for percentage data)
             means high level of concentration
-            """)
+            """
+        )
         print(f"Sum of market shares : {np.sum(x)}.")
 
     # Compute HHI with normalization if necessary
@@ -112,28 +120,29 @@ def hhi(x:Sequence[float],
 
         if verbose:
             print(f"Unnormalized HHI : {hhi}.")
-            
+
         n = len(x)
         if n > 1:
-            hhi = (hhi-1/n)/(1-1/n)
+            hhi = (hhi - 1 / n) / (1 - 1 / n)
         else:
-            raise ValueError("""Normalization is not meaningful with only 1 company (zero-division in formula).""")
+            raise ValueError(
+                """Normalization is not meaningful with only 1 company (zero-division in formula)."""
+            )
 
         if verbose:
             print(f"Normalized HHI : {hhi}.")
 
     return hhi
 
-def concentration_ratio(x:Sequence[float], 
-                        k:int=3,
-                        verbose:bool=False) -> float:
+
+def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -> float:
     """
     Return the concentration ratio of a market for a parameter n.
 
     Args:
         x (Sequence[float]): Sequence of market shares.
         k (int, optional): Number of companies to consider as top k market shares.
-        verbose (bool, optional): If True, additional information is printed during the computation. 
+        verbose (bool, optional): If True, additional information is printed during the computation.
                                   Defaults to False.
 
     Returns:
@@ -144,12 +153,14 @@ def concentration_ratio(x:Sequence[float],
         ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
         ValueError: If `k` is not a strictly positive integer.
     """
-    
-    x=np.array(x, dtype=np.float64)
+
+    x = np.array(x, dtype=np.float64)
 
     # Check if x is 1D array
     if x.ndim != 1:
-        raise ValueError("""The market shares data provided should be one-dimensional.""")
+        raise ValueError(
+            """The market shares data provided should be one-dimensional."""
+        )
 
     # Check if x is empty
     if x.size == 0:
@@ -167,35 +178,38 @@ def concentration_ratio(x:Sequence[float],
     if not isinstance(k, int) or k <= 0:
         raise ValueError(f"Parameter `k` must be a strictly positive integer. Got {k}.")
 
-
     # Limit k to the total number of companies
     # in case where k is higher than this total number
     if k > x.size and verbose:
-        print(f"Parameter `k` exceeds the total number of companies ({x.size}). Limiting `k` to {x.size}.")
+        print(
+            f"Parameter `k` exceeds the total number of companies ({x.size}). Limiting `k` to {x.size}."
+        )
 
     k = min(k, x.size)
 
     # Check if market shares are given in %
     if np.sum(x) > 1:
-        warnings.warn("""The sum of market shares exceeds 1, suggesting that they may be in percentage form.
-                         Please verify the data.""", UserWarning)
-
+        warnings.warn(
+            """The sum of market shares exceeds 1, suggesting that they may be in percentage form.
+                         Please verify the data.""",
+            UserWarning,
+        )
 
     # Get the k largest market shares
     # We use np.partition for O(n) time complexity
-    top_k=np.partition(x, -k)[-k:]
+    top_k = np.partition(x, -k)[-k:]
 
     # Return the sum of the k-largest market shares.
     return np.sum(top_k)
 
-def shannon_entropy(x:Sequence[float],
-                   verbose:bool=False) -> float:
+
+def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
     """
     Compute the Shannon Entropy for market concentration.
 
     Args:
         x (Sequence[float]): A 1D sequence of market shares.
-        verbose (bool, optional): If True, additional information is printed during the computation. 
+        verbose (bool, optional): If True, additional information is printed during the computation.
                                   Defaults to False.
 
     Returns:
@@ -207,11 +221,13 @@ def shannon_entropy(x:Sequence[float],
         ValueError: If Shannon Entropy is not defined as all values are zero.
     """
 
-    x=np.array(x, dtype=np.float64)
+    x = np.array(x, dtype=np.float64)
 
     # Check if x is 1D array
     if x.ndim != 1:
-        raise ValueError("""The market shares data provided should be one-dimensional.""")
+        raise ValueError(
+            """The market shares data provided should be one-dimensional."""
+        )
 
     # Check if x is empty
     if x.size == 0:
@@ -227,8 +243,10 @@ def shannon_entropy(x:Sequence[float],
 
     # Check if all values are equal to zero
     if np.sum(x) == 0:
-        raise ValueError("""All market shares are equal to zero
-                        Shannon Entropy is not defined.""")
+        raise ValueError(
+            """All market shares are equal to zero
+                        Shannon Entropy is not defined."""
+        )
 
     if verbose:
         print(f"The sum of the market shares is {np.sum(x)}.")
@@ -236,9 +254,7 @@ def shannon_entropy(x:Sequence[float],
 
     # Normalize data for Shannon entropy to be a probability distribution
     # As we assume all data is non negative it should sum up to 1
-    x=x/np.sum(x)
+    x = x / np.sum(x)
 
     # When 0 are in the data don't comput log only return 0
-    return -np.sum(np.where(x>0,x*np.log(x), 0))
-
-    
+    return -np.sum(np.where(x > 0, x * np.log(x), 0))
