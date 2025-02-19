@@ -99,7 +99,7 @@ def hhi(x:Sequence[float],
             HHI higher than 0.25 (or 2500 for percentage data)
             means high level of concentration
             """)
-        print(f"Sum of market shares : {np.sum(x)}")
+        print(f"Sum of market shares : {np.sum(x)}.")
 
     # Compute HHI with normalization if necessary
     hhi = np.sum(x**2)
@@ -107,7 +107,7 @@ def hhi(x:Sequence[float],
     if normalize:
 
         if verbose:
-            print(f"Unnormalized HHI : {hhi}")
+            print(f"Unnormalized HHI : {hhi}.")
             
         n = len(x)
         if n > 1:
@@ -116,7 +116,7 @@ def hhi(x:Sequence[float],
             raise ValueError("""Normalization is not meaningful with only 1 company (zero-division in formula).""")
 
         if verbose:
-            print(f"Normalized HHI : {hhi}")
+            print(f"Normalized HHI : {hhi}.")
 
     return hhi
 
@@ -131,6 +131,7 @@ def concentration_ratio(x:Sequence[float], k:int=3) -> float:
     Returns:
         float: Concentration ratio from 0 to 0.4 competitive market,
             from 0.4 to 0.7 medium concentration, from 0.7 to 1 high concentration.
+            
     """
     
     x=np.array(x, dtype=np.float64).flatten()
@@ -138,7 +139,24 @@ def concentration_ratio(x:Sequence[float], k:int=3) -> float:
 
     return x[-k:].sum()
 
-def shannon_entropy(x:Sequence[float]) -> float:
+def shannon_entropy(x:Sequence[float],
+                   verbose:bool=False) -> float:
+    """
+    Compute the Shannon Entropy for market concentration.
+
+    Args:
+        x (Sequence[float]): Sequence of market shares.
+        verbose (bool, optional): If True, additional information is printed during the computation. 
+                                  Defaults to False.
+
+    Returns:
+        float: Shannon Entropy, from 0 for monopoly, to log(n) for diversified market,
+                where n is the number of competitors.
+
+    Raises:
+        ValueError: If `x` is not a 1D array, contains negative values, or NaN values.
+        ValueError: If Shannon Entropy is not defined as all values are zero.
+    """
 
     x=np.array(x, dtype=np.float64)
 
@@ -153,6 +171,15 @@ def shannon_entropy(x:Sequence[float]) -> float:
     # Check if data is missing
     if np.isnan(x).any():
         raise ValueError("""Some market shares provided are missing (NaN values).""")
+
+    # Check if all values are equal to zero
+    if np.sum(x) == 0:
+        raise ValueError("""All market shares are equal to zero
+                        Shannon Entropy is not defined.""")
+
+    if verbose:
+        print(f"The sum of the market shares is {np.sum(x)}.")
+        print("The lower the Shannon Entropy the higher the market concentration is.")
 
     # Normalize data for Shannon entropy to be a probability distribution
     # As we assume all data is non negative it should sum up to 1
