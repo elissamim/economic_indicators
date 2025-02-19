@@ -1,6 +1,6 @@
 # Gini Index
 
-
+Used as a measure of inequality, the Gini Index can also be used to measure how evenly market shares are distributed across companies. A Gini Index of 0 indicates perfect equality in market shares between firms, whereas a Gini Index of 1 indicates maximum inequality in terms of market share distribution i.e. a total monopoly. 
 $\frac{2}{n}\frac{\sum_{i=1}^{n}i \times s_{i}}{\sum_{i=1}^{n}s_{i}}-\frac{n+1}{n}$
 
 # Lorenz curve
