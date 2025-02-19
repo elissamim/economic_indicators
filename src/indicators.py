@@ -68,7 +68,7 @@ def hhi(x:Sequence[float],
                - If shares are mistakenly given as percentages (>1 sum), a warning is raised.
 
     Raises:
-        ValueError: If `x` is not a 1D array, contains negative values, or NaN values.
+        ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
         ValueError: If normalization is applied with regard to only one company.
     """
 
@@ -77,6 +77,10 @@ def hhi(x:Sequence[float],
     # Check if x is 1D array
     if x.ndim != 1:
         raise ValueError("""The market shares data provided should be one-dimensional.""")
+
+    # Check if x is empty
+    if x.size == 0:
+        raise ValueError("""Market shares array is empty.""")
 
     # Check if all market shares are positive
     if (x < 0).any():
@@ -126,12 +130,11 @@ def concentration_ratio(x:Sequence[float], k:int=3) -> float:
 
     Args:
         x (Sequence[float]): Sequence of market shares.
-        n (int, Optional): Number of companies to consider as top n market shares.
+        k (int, Optional): Number of companies to consider as top k market shares.
 
     Returns:
         float: Concentration ratio from 0 to 0.4 competitive market,
             from 0.4 to 0.7 medium concentration, from 0.7 to 1 high concentration.
-            
     """
     
     x=np.array(x, dtype=np.float64)
@@ -140,6 +143,10 @@ def concentration_ratio(x:Sequence[float], k:int=3) -> float:
     if x.ndim != 1:
         raise ValueError("""The market shares data provided should be one-dimensional.""")
 
+    # Check if x is empty
+    if x.size == 0:
+        raise ValueError("""Market shares array is empty.""")
+
     # Check if all market shares are positive
     if (x < 0).any():
         raise ValueError("""Some market shares provided are strictly negative.""")
@@ -147,6 +154,10 @@ def concentration_ratio(x:Sequence[float], k:int=3) -> float:
     # Check if data is missing
     if np.isnan(x).any():
         raise ValueError("""Some market shares provided are missing (NaN values).""")
+
+    # Check if k is a strictly positive integer
+    if not isinstance(k, int) or k <= 0:
+        raise ValueError("""""")
 
     # Sort market shares in ascending order
     x.sort()
@@ -169,7 +180,7 @@ def shannon_entropy(x:Sequence[float],
                 where n is the number of competitors.
 
     Raises:
-        ValueError: If `x` is not a 1D array, contains negative values, or NaN values.
+        ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
         ValueError: If Shannon Entropy is not defined as all values are zero.
     """
 
@@ -178,6 +189,10 @@ def shannon_entropy(x:Sequence[float],
     # Check if x is 1D array
     if x.ndim != 1:
         raise ValueError("""The market shares data provided should be one-dimensional.""")
+
+    # Check if x is empty
+    if x.size == 0:
+        raise ValueError("""Market shares array is empty.""")
 
     # Check if all market shares are positive
     if (x < 0).any():
