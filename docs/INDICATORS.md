@@ -12,7 +12,7 @@ Graphical representation that shows for the bottom $x$% of firms in terms of mar
 
 A perfect competitive market is represented by a Lorenz curve where the bottom $k$% have $k$% of the total market share. This is depicted by the straight line $y=x$. By contrast, a perfectly monopolistic distribution would be one in which $y=0$% for all $x<100$% and $y=100$% when $x=100$%.
 
-The Gini Index can be computed using the Lorenz Curve. If $A$ is the area between the $y=x$ line and the Lorenz Curve and $B$ is the area between the Lorenz Curve and the x-axis, then the Gini Index is given by \frac{A}{A+B}
+The Gini Index can be computed using the Lorenz Curve. If $A$ is the area between the $y=x$ line and the Lorenz Curve and $B$ is the area between the Lorenz Curve and the x-axis, then the Gini Index is given by $\frac{A}{A+B}$
 
 # Hoover Index
 
