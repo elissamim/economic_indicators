@@ -16,6 +16,7 @@ The most commonly used concentration ratios are $CR_{4}$ and $CR_{8}$, and their
 Concentration Ratio has however a shortfall as it doesn't capture the distribution of market shares but only the sum of the $k$ largest market shares. For instance, for an industry A and B, where the 4 largest market shares are the following :
 - A : 20%-20%-20%-20%
 - B: 35%-25%-10%-10%
+  
 The $CR_{4}$ for A and B is 80%, whereas it is evident that B is more concentrated than A.
 
 # Herfindahl-Hirschman Index ($HHI$)
