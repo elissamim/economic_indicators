@@ -9,7 +9,7 @@ A concentration ratio for a pre-specified number $k$ of firms ($CR_{k}$) is the 
 
 The most commonly used concentration ratios are $CR_{4}$ and $CR_{8}$, and their values range from 0 (lowest concetration level) to 1 (highest concentration level), or from 0 to 100 if market shares are expressed in percentages. The different possible concentration levels are the following :
 - Perfect concentration : from $CR_{k}=0$ to $CR_{k}=\frac{k}{n}$, all firms have equal market share
-- Low concentration : 
+- Low concentration : from $CR_{k}=\frac{k}{n}$ to $CR_{k}=0,4$
 
 # Herfindahl-Hirschman Index (HHI)
 
