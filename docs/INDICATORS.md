@@ -1,5 +1,6 @@
 # Gini Index
 
+$\frac{2}{n}\frac{\sum_{i=1}^{n}iy_{i}}{\sum_{i=1}^{n}y_{i}}-\frac{n+1}{n}$
 
 # Lorenz curve
 
