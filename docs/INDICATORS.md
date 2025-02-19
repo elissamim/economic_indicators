@@ -10,7 +10,7 @@ To compute the Gini Index:
 
 Graphical representation that shows for the bottom $x$% of firms in terms of market shares, the percentage of the total market share $y$% of an industry. The percentage of firms is plotted on the x-axis and the percentage of total market share on the y-axis.
 
-A perfect competitive market is represented by a Lorenz curve where the bottom $k$% have $k$% of the total market share. This is depicted by the straight line $y=x$. By contrast, 
+A perfect competitive market is represented by a Lorenz curve where the bottom $k$% have $k$% of the total market share. This is depicted by the straight line $y=x$. By contrast, a perfectly monopolistic distribution would be one in which $y=0$% for all $x<100$% and $y=100$% when $x=100$%.
 
 # Hoover Index
 
