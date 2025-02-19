@@ -326,3 +326,28 @@ def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
 
     # When 0 are in the data don't comput log only return 0
     return float(-np.sum(np.where(x > 0, x * np.log(x), 0)))
+
+def theil_index(x: Sequence[float], verbose:bool=False) -> float:
+
+    x=np.array(x, dtype=np.float64)
+
+    # Check if x is 1D array
+    if x.ndim != 1:
+        raise ValueError(
+            """The market shares data provided should be one-dimensional."""
+        )
+
+    # Check if x is empty
+    if x.size == 0:
+        raise ValueError("""Market shares array is empty.""")
+
+    # Check if all market shares are positive
+    if (x < 0).any():
+        raise ValueError("""Some market shares provided are strictly negative.""")
+
+    # Check if data is missing
+    if np.isnan(x).any():
+        raise ValueError("""Some market shares provided are missing (NaN values).""")
+
+    return None
+    
