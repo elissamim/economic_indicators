@@ -139,6 +139,10 @@ def concentration_ratio(x:Sequence[float],
     Returns:
         float: Concentration ratio from 0 to 0.4 competitive market,
                 from 0.4 to 0.7 medium concentration, from 0.7 to 1 high concentration.
+
+    Raises:
+        ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
+        ValueError: If `k` is not a strictly positive integer.
     """
     
     x=np.array(x, dtype=np.float64)
@@ -161,20 +165,21 @@ def concentration_ratio(x:Sequence[float],
 
     # Check if k is a strictly positive integer
     if not isinstance(k, int) or k <= 0:
-        raise ValueError("""Parameter `k` must be a strictly positive integer.""")
+        raise ValueError(f"Parameter `k` must be a strictly positive integer. Got {k}.")
+
 
     # Limit k to the total number of companies
     # in case where k is higher than this total number
-    if verbose and (k > x.size):
-        print(f"Parameter `k` with value {k} is higher than total number of companies {x.size} and will be limited to {x.size}")
+    if k > x.size and verbose:
+        print(f"Parameter `k` exceeds the total number of companies ({x.size}). Limiting `k` to {x.size}.")
 
     k = min(k, x.size)
 
     # Check if market shares are given in %
     if np.sum(x) > 1:
-        warnings.warn("""Market shares seem expressed in % as the sum
-                      of market shares is strictly higher than 1.""", 
-                      UserWarning)
+        warnings.warn("""The sum of market shares exceeds 1, suggesting that they may be in percentage form.
+                         Please verify the data.""", UserWarning)
+
 
     # Get the k largest market shares
     # We use np.partition for O(n) time complexity
