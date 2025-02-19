@@ -7,6 +7,8 @@
 
 A concentration ratio for a pre-specified number $k$ of firms ($CR_{k}$) is the sum of the market shares of the $k$ largest companies in a market. $CR_{k}$ shows the combined market share of the $k$ largest companies in the industry. The usual values for $k$ are $\lbrace 3, 4, 5, 6, 7, 8 \rbrace$ corresponding to $CR_{3}, CR_{4}, CR_{5}, CR_{6}, CR_{7}, CR_{8}$. For example, $CR_{4}$ defines the combined market share of the four largest firms in a market. The formula of the concentration ratio is given by : $CR_{k}=\sum_{i=1}^{k}s_{i}=s_{1}+s_{2}+ \ldots + s_{k}$, where $s_{j}$ is the market share of the jth-largest company in the market (for example $s_{1}$ is the market share of the largest company in the industry).
 
+The most commonly used concentration ratios are $CR_{4}$ and $CR_{8}$
+
 # Herfindahl-Hirschman Index (HHI)
 
 The Herfindahl-Hirschman Index is calculated by summing the squares of the market shares of each company competing in a market: $HHI=\sum_{i=1}^{n} s_{i}^{2}$ where $s_{i}$ is the market share of company $i$ and $n$ is the number of companies in the market. Thus, for a market held by two companies with market shares of 30% and 70%, the $HHI$ is $HHI=0,3^{2}+0,7^{2}=0,09+0,49=0,58$.
