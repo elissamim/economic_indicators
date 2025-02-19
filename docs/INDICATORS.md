@@ -42,7 +42,7 @@ A normalized $HHI$ also exists, ensuring index values between 0 and 1, regardles
 
 # Theil Index
 
-$\frac{1}{n}\sum_{i=1}^{n}(\frac{s_{i}}{\overline{s}})$
+$\frac{1}{n}\sum_{i=1}^{n}(\frac{s_{i}}{\overline{s}})\ln(\frac{s_{i}}{\overline{s}})$
 
 # Shannon entropy
 
