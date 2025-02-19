@@ -13,7 +13,7 @@ The most commonly used concentration ratios are $CR_{4}$ and $CR_{8}$, and their
 - Medium concentration : from $CR_{k}=0,4$ to $CR_{k}=0,7$, the market is likely an oligopoly : the industry is dominated by a small number of firms each with significant market shares
 - High concentration :  from $CR_{k}=0,7$ to $CR_{k}=1$, this concentration level ranges from oligopoly to monopoly
 
-# Herfindahl-Hirschman Index (HHI)
+# Herfindahl-Hirschman Index ($HHI$)
 
 The Herfindahl-Hirschman Index is calculated by summing the squares of the market shares of each company competing in a market: $HHI=\sum_{i=1}^{n} s_{i}^{2}$ where $s_{i}$ is the market share of company $i$ and $n$ is the number of companies in the market. Thus, for a market held by two companies with market shares of 30% and 70%, the $HHI$ is $HHI=0,3^{2}+0,7^{2}=0,09+0,49=0,58$.
 
