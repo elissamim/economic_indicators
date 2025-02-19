@@ -16,7 +16,7 @@ The Gini Index can be computed using the Lorenz Curve. If $A$ is the area betwee
 
 # Hoover Index
 
-
+$\frac{1}{2}\frac{\sum_{i=1}^{n}}{\sum_{i=1}^{n}s_{i}}$
 
 # Concentration Ratio ($CR_{k}$)
 
