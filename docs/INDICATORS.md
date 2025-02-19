@@ -60,6 +60,6 @@ A Theil Index close to 0 indicates a highly competitive market, the higher the T
 - $0<T<0,2$: high competition
 - $0,2\leq T < 0,5$: moderate concentration
 - $0,5 \leq T < 1$: high concentration
-- $1 \leq T$ : Very high concentration
+- $1 \leq T$ : very high concentration
 
 
