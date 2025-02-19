@@ -32,4 +32,8 @@ A normalized $HHI$ also exists, ensuring index values between 0 and 1, regardles
 
 # Theil Index
 
-# Shannon Entropy
+# Shannon entropy
+
+Shannon entropy is a useful measure for market concentration because it quantifies the diversity in a market, the formula
+
+
