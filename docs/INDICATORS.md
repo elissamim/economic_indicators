@@ -58,8 +58,8 @@ The Theil Index is given by: $T=\frac{1}{n}\sum_{i=1}^{n}(\frac{s_{i}}{\overline
 A Theil Index close to 0 indicates a highly competitive market, the higher the Theil Index is the more concentrated the market is. The Theil Index is an entropic measure to perfect competition in a market and can be interpreted as follow:
 - $T=0$: perfect competition
 - $0<T<0,2$: high competition
-- $0,2\geq T < 0,5$: moderate concentration
-- $0,5 \geq T < 1$: high concentration
-- $1 \geq T$ : Very high concentration
+- $0,2\leq T < 0,5$: moderate concentration
+- $0,5 \leq T < 1$: high concentration
+- $1 \leq T$ : Very high concentration
 
 
