@@ -1,6 +1,7 @@
 # Gini Index
 
-$\frac{2}{n}\frac{\sum_{i=1}^{n}i \times y_{i}}{\sum_{i=1}^{n}y_{i}}-\frac{n+1}{n}$
+
+$\frac{2}{n}\frac{\sum_{i=1}^{n}i \times s_{i}}{\sum_{i=1}^{n}s_{i}}-\frac{n+1}{n}$
 
 # Lorenz curve
 
