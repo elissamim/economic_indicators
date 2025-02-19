@@ -34,6 +34,6 @@ A normalized $HHI$ also exists, ensuring index values between 0 and 1, regardles
 
 # Shannon entropy
 
-Shannon entropy is a useful measure for market concentration because it quantifies the diversity in a market, the formula
+Shannon entropy is a useful measure for market concentration because it quantifies the diversity in a market, the formula of the Shannon entropy is given by : $-\sum_{i=1}^{n}s_{i}\ln(s_{i})$
 
 
