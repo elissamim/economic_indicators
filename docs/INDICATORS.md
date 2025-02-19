@@ -4,7 +4,7 @@ Used as a measure of inequality, the Gini Index can also be used to measure how 
 
 To compute the Gini Index:
 - Sort the market shares in ascending order
-- Calculate the Gini Index using this formula : $\frac{2}{n}\frac{\sum_{i=1}^{n}i \times s_{i}}{\sum_{i=1}^{n}s_{i}}-\frac{n+1}{n}$, where $n$ is the total number of companies and $s_{i}$ is the market share of the $i$ -th company after sorting market shares in ascending order.
+- Calculate the Gini Index using this formula : $\frac{2}{n}\frac{\sum_{i=1}^{n}i \times s_{i}}{\sum_{i=1}^{n}s_{i}}-\frac{n+1}{n}$, where $n$ is the total number of companies and $s_{i}$ is the market share of the $i$ -th company after sorting market shares in ascending order
 
 # Lorenz curve
 
