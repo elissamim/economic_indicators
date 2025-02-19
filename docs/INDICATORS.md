@@ -42,7 +42,12 @@ A normalized $HHI$ also exists, ensuring index values between 0 and 1, regardles
 
 # Theil Index
 
-$\frac{1}{n}\sum_{i=1}^{n}(\frac{s_{i}}{\overline{s}})\ln(\frac{s_{i}}{\overline{s}})$
+The Theil Index is an entropy-based measure of concentration in a market that:
+- is sensitive to distribution : unlike simpler measures such as concentration ratio, the Theil Index captures how uneven the market shares are
+- decomposable into within-group and between-group components, useful for analyzing different sectors
+- entropy-based : it accounts for information theory principles, making it more theoretically grounded
+
+The Theil Index is given by: $\frac{1}{n}\sum_{i=1}^{n}(\frac{s_{i}}{\overline{s}})\ln(\frac{s_{i}}{\overline{s}})$
 
 # Shannon entropy
 
