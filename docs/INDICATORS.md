@@ -14,10 +14,6 @@ A perfect competitive market is represented by a Lorenz curve where the bottom $
 
 The Gini Index can be computed using the Lorenz Curve. If $A$ is the area between the $y=x$ line and the Lorenz Curve and $B$ is the area between the Lorenz Curve and the x-axis, then the Gini Index is given by $\frac{A}{A+B}$
 
-# Hoover Index
-
-$\frac{1}{2}\frac{\sum_{i=1}^{n}|s_{i}-\overline{s}|}{\sum_{i=1}^{n}s_{i}}$
-
 # Concentration Ratio ($CR_{k}$)
 
 A concentration ratio for a pre-specified number $k$ of firms ($CR_{k}$) is the sum of the market shares of the $k$ largest companies in a market of $n$ companies. $CR_{k}$ shows the combined market share of the $k$ largest companies in the industry. The usual values for $k$ are $\lbrace 3, 4, 5, 6, 7, 8 \rbrace$ corresponding to $CR_{3}, CR_{4}, CR_{5}, CR_{6}, CR_{7}, CR_{8}$. For example, $CR_{4}$ defines the combined market share of the four largest firms in a market. The formula of the concentration ratio is given by : $CR_{k}=\sum_{i=1}^{k}s_{i}=s_{1}+s_{2}+ \ldots + s_{k}$, where $s_{j}$ is the market share of the jth-largest company in the market (for example $s_{1}$ is the market share of the largest company in the industry).
@@ -44,8 +40,9 @@ In general, the closer the $HHI$ is to 1 (or 10,000), the more monopolistic the 
 
 A normalized $HHI$ also exists, ensuring index values between 0 and 1, regardless of the input data. The formula for the normalized $HHI$ is: $\hat{HHI}=\frac{HHI-\frac{1}{n}}{1-\frac{1}{n}}$
 
-
 # Theil Index
+
+$\frac{1}{n}\sum_{i=1}^{n}(\frac{s_{i}}{\overline{s}})$
 
 # Shannon entropy
 
