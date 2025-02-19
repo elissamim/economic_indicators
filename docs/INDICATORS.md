@@ -5,7 +5,7 @@
 
 # Concentration Ratio ($CR_{n}$)
 
-A concentration ratio for a pre-specified number $n$ of firms ($CR_{n}$) is the sum of the market shares of the $n$ largest companies in a market. $CR_{n}$ shows the combined market share of the $n$ largest companies in the industry. The usual values for $n$ are $\lbrace 3, 4, 5, 6, 7, 8 \rbrace$ corresponding to $CR_{3}, CR_{4}, CR_{5}, CR_{6}, CR_{7}, CR_{8}$. For example, $CR_{4}$ defines the combined market share of the four largest firms in a market. The formula of the concentration ratio is given by : $CR_{n}=\sum_{i=1}^{n}s_{i}$
+A concentration ratio for a pre-specified number $k$ of firms ($CR_{k}$) is the sum of the market shares of the $k$ largest companies in a market. $CR_{k}$ shows the combined market share of the $k$ largest companies in the industry. The usual values for $k$ are $\lbrace 3, 4, 5, 6, 7, 8 \rbrace$ corresponding to $CR_{3}, CR_{4}, CR_{5}, CR_{6}, CR_{7}, CR_{8}$. For example, $CR_{4}$ defines the combined market share of the four largest firms in a market. The formula of the concentration ratio is given by : $CR_{k}=\sum_{i=1}^{k}s_{i}$
 
 # Herfindahl-Hirschman Index (HHI)
 
