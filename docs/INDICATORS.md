@@ -8,7 +8,7 @@ To compute the Gini Index:
 
 # Lorenz curve
 
-Graphical representation that shows for the bottom $x$% of firms in terms of market shares, the percentage of the total market share $y$% of an industry.
+Graphical representation that shows for the bottom $x$% of firms in terms of market shares, the percentage of the total market share $y$% of an industry. The percentage of firms is plotted on the x-axis and the percentage of total market share on the y-axis.
 
 # Hoover Index
 
