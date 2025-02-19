@@ -145,7 +145,7 @@ def shannon_entropy(x:Sequence[float],
     Compute the Shannon Entropy for market concentration.
 
     Args:
-        x (Sequence[float]): Sequence of market shares.
+        x (Sequence[float]): A 1D sequence of market shares.
         verbose (bool, optional): If True, additional information is printed during the computation. 
                                   Defaults to False.
 
@@ -183,8 +183,7 @@ def shannon_entropy(x:Sequence[float],
 
     # Normalize data for Shannon entropy to be a probability distribution
     # As we assume all data is non negative it should sum up to 1
-    if np.sum(x) > 0:
-        x=x/np.sum(x)
+    x=x/np.sum(x)
 
     # When 0 are in the data don't comput log only return 0
     return -np.sum(np.where(x>0,x*np.log(x), 0))
