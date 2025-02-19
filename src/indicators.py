@@ -6,7 +6,7 @@ import numpy as np
 
 def gini_index(x: Sequence[float], verbose: bool=False) -> float:
     """
-    Return the Gini Index of an array.
+    Returns the Gini Index of an array.
 
     Args:
         x (Sequence[float]): Sequence of market shares.
@@ -49,12 +49,77 @@ def gini_index(x: Sequence[float], verbose: bool=False) -> float:
     if total_x==0:
         if verbose:
             print("Gini index is 0 because all market shares are 0.")
-        return 0.0
+        return float(0.0)
     else:
         x=np.sort(x)
         indices=np.arange(1, n+1)
         weighted_total_x=np.sum(indices*x)
-        return (2*weighted_total_x)/(n*total_x)-(n+1)/n
+        return float((2*weighted_total_x)/(n*total_x)-(n+1)/n)
+
+def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
+    """
+    Plots the Lorenz Curve of an array.
+
+    Args:
+        x (Sequence[float]): Sequence of market shares.
+        verbose (bool, optional): If True, additional information is printed during the computation.
+                                  Defaults to False.
+
+    Returns:
+        None.
+    """
+
+    x = np.array(x, dtype=np.float64)
+
+    # Check if x is 1D array
+    if x.ndim != 1:
+        raise ValueError("The market shares data provided should be one-dimensional.")
+
+    # Check if x is empty
+    if x.size == 0:
+        raise ValueError("Market shares array is empty.")
+
+    # Check if all market shares are positive
+    if (x < 0).any():
+        raise ValueError("Some market shares provided are strictly negative.")
+
+    # Check if data is missing
+    if np.isnan(x).any():
+        raise ValueError("Some market shares provided are missing (NaN values).")
+
+    total_x = x.sum()
+    if total_x == 0:
+        if verbose:
+            print("All market shares are zero. Lorenz Curve is a straight line at y=0.")
+        plt.plot([0, 1], [0, 0], color="#eb7d0f", label="Lorenz Curve (Zero Market)")
+        plt.plot([0, 1], [0, 1], color="#096c45", linestyle="--", label="Perfect Equality")
+        plt.xlabel("Cumulative Share of Population")
+        plt.ylabel("Cumulative Share of Market")
+        plt.legend()
+        plt.show()
+        return
+
+    # Compute Lorenz curve
+    x = np.sort(x)
+    lorenz_curve = np.cumsum(x) / total_x
+    lorenz_curve = np.insert(lorenz_curve, 0, 0)  # Insert 0 at the beginning
+
+    # Population proportion (x-axis)
+    pop_share = np.linspace(0, 1, len(lorenz_curve))
+
+    # Plot Lorenz Curve
+    fig, ax = plt.subplots(figsize=[6, 6])
+    ax.plot(pop_share, lorenz_curve, color="#eb7d0f", linewidth=2, label="Lorenz Curve")
+    ax.plot([0, 1], [0, 1], color="#096c45", linestyle="--", label="Perfect Equality")
+    
+    # Labels & legend
+    ax.set_xlabel("Cumulative Share of Population")
+    ax.set_ylabel("Cumulative Share of Market")
+    ax.set_title("Lorenz Curve")
+    ax.legend()
+    ax.grid(True, linestyle="--", alpha=0.7)
+
+    plt.show()
 
 def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> float:
     """
@@ -136,7 +201,7 @@ def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> f
         if verbose:
             print(f"Normalized HHI : {hhi}.")
 
-    return hhi
+    return float(hhi)
 
 
 def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -> float:
@@ -204,8 +269,7 @@ def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -
     top_k = np.partition(x, -k)[-k:]
 
     # Return the sum of the k-largest market shares.
-    return np.sum(top_k)
-
+    return float(np.sum(top_k))
 
 def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
     """
@@ -261,31 +325,4 @@ def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
     x = x / np.sum(x)
 
     # When 0 are in the data don't comput log only return 0
-    return -np.sum(np.where(x > 0, x * np.log(x), 0))
-
-
-# def lorenz_curve(x: Sequence[float]) -> None:
-#     """
-#     Plot the Lorenz Curve of an array.
-
-#     Args:
-#         x (Sequence[float]): Sequence of market shares.
-
-#     Returns:
-#         None.
-#     """
-
-#     sorted_x = np.array(x, dtype=float).flatten().copy()
-#     sorted_x.sort()
-#     lorenz_x = sorted_x.cumsum() / sorted_x.sum()
-#     lorenz_x = np.insert(lorenz_x, 0, 0)
-
-#     fig, ax = plt.subplots(figsize=[6, 6])
-#     ax.scatter(
-#         np.arange(lorenz_x.size) / (lorenz_x.size - 1),
-#         lorenz_x,
-#         marker="x",
-#         color="orange",
-#         s=100,
-#     )
-#     ax.plot([0, 1], [0, 1], color="green")
+    return float(-np.sum(np.where(x > 0, x * np.log(x), 0)))
