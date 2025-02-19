@@ -4,53 +4,57 @@ from typing import Sequence
 import matplotlib.pyplot as plt
 import numpy as np
 
-
-def gini_index(x: Sequence[float]) -> float:
+def gini_index(x: Sequence[float], verbose: bool=False) -> float:
     """
     Return the Gini Index of an array.
 
     Args:
         x (Sequence[float]): Sequence of market shares.
+        verbose (bool, optional): If True, additional information is printed during the computation.
+                                  Defaults to False.
 
     Returns:
         float: The Gini Index between 0 for perfect equality and 1 for perfect inequality.
+
+    Raises:
+        ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
     """
 
-    sorted_x = np.array(x, dtype=float).flatten().copy()
-    sorted_x.sort()
+    x = np.array(x, dtype=np.float64)
+
+    # Check if x is 1D array
+    if x.ndim != 1:
+        raise ValueError(
+            """The market shares data provided should be one-dimensional."""
+        )
+
+    # Check if x is empty
     n = x.size
-    coef = 2 / n
-    const = (n + 1) / n
-    weighted_sum = sum([i * y for i, y in enumerate(sorted_x)])
-    return coef * weighted_sum / sorted_x.sum() - const
+    if n == 0:
+        raise ValueError("""Market shares array is empty.""")
 
+    # Check if all market shares are positive
+    if (x < 0).any():
+        raise ValueError("""Some market shares provided are strictly negative.""")
 
-def lorenz_curve(x: Sequence[float]) -> None:
-    """
-    Plot the Lorenz Curve of an array.
+    # Check if data is missing
+    if np.isnan(x).any():
+        raise ValueError("""Some market shares provided are missing (NaN values).""")
 
-    Args:
-        x (Sequence[float]): Sequence of market shares.
+    if verbose:
+        print("Gini index ranges from 0 (perfect equality) to 1 (perfect inequality).")
 
-    Returns:
-        None.
-    """
-
-    sorted_x = np.array(x, dtype=float).flatten().copy()
-    sorted_x.sort()
-    lorenz_x = sorted_x.cumsum() / sorted_x.sum()
-    lorenz_x = np.insert(lorenz_x, 0, 0)
-
-    fig, ax = plt.subplots(figsize=[6, 6])
-    ax.scatter(
-        np.arange(lorenz_x.size) / (lorenz_x.size - 1),
-        lorenz_x,
-        marker="x",
-        color="orange",
-        s=100,
-    )
-    ax.plot([0, 1], [0, 1], color="green")
-
+    # Sort the data for Gini Index computation
+    total_x=x.sum()
+    if total_x==0:
+        if verbose:
+            print("Gini index is 0 because all market shares are 0.")
+        return 0.0
+    else:
+        x=np.sort(x)
+        indices=np.arange(1, n+1)
+        weighted_total_x=np.sum(indices*x)
+        return (2*weighted_total_x)/(n*total_x)-(n+1)/n
 
 def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> float:
     """
@@ -258,3 +262,30 @@ def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
 
     # When 0 are in the data don't comput log only return 0
     return -np.sum(np.where(x > 0, x * np.log(x), 0))
+
+
+# def lorenz_curve(x: Sequence[float]) -> None:
+#     """
+#     Plot the Lorenz Curve of an array.
+
+#     Args:
+#         x (Sequence[float]): Sequence of market shares.
+
+#     Returns:
+#         None.
+#     """
+
+#     sorted_x = np.array(x, dtype=float).flatten().copy()
+#     sorted_x.sort()
+#     lorenz_x = sorted_x.cumsum() / sorted_x.sum()
+#     lorenz_x = np.insert(lorenz_x, 0, 0)
+
+#     fig, ax = plt.subplots(figsize=[6, 6])
+#     ax.scatter(
+#         np.arange(lorenz_x.size) / (lorenz_x.size - 1),
+#         lorenz_x,
+#         marker="x",
+#         color="orange",
+#         s=100,
+#     )
+#     ax.plot([0, 1], [0, 1], color="green")
