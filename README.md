@@ -10,4 +10,4 @@ This repo contains implementations of several economic indicators in Python, inc
 - Theil Index
 - Shannon Entropy
 
-Definitions and formulas are given here : (docs/INDICATORS.md)
+Definitions and formulas are given here : [](docs/INDICATORS.md)
