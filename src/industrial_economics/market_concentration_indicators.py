@@ -3,8 +3,28 @@ from typing import Sequence
 
 import matplotlib.pyplot as plt
 import numpy as np
+from numba import njit
 
 from utils import validate_market_shares_data
+
+@njit(return_type=float)
+def _gini_index(x: np.ndarray) -> float:
+    """
+    Computes the Gini Index using numba.
+
+    Args:
+        x (np.ndarray): A 1D numpy array of floats.
+
+    Returns:
+        float: The Gini Index.
+    """
+
+    n=x.size
+    total_x = x.sum()
+    x = np.sort(x)
+    indices = np.arange(1, n + 1)
+    weighted_total_x = np.sum(indices * x)
+    return float((2 * weighted_total_x) / (n * total_x) - (n + 1) / n)
 
 
 def gini_index(x: Sequence[float], verbose: bool = False) -> float:
@@ -28,18 +48,13 @@ def gini_index(x: Sequence[float], verbose: bool = False) -> float:
     if verbose:
         print("Gini index ranges from 0 (perfect equality) to 1 (perfect inequality).")
 
-    # Sort the data for Gini Index computation
-    n = x.size
     total_x = x.sum()
     if total_x == 0:
         if verbose:
             print("Gini index is 0 because all market shares are 0.")
         return float(0.0)
     else:
-        x = np.sort(x)
-        indices = np.arange(1, n + 1)
-        weighted_total_x = np.sum(indices * x)
-        return float((2 * weighted_total_x) / (n * total_x) - (n + 1) / n)
+        return _gini_index(x)
 
 
 def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
@@ -93,7 +108,19 @@ def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
 
     plt.show()
 
+@njit(return_type=float)
+def _hhi(x: np.ndarray) -> float:
+    """
+    Computes the Herfindahl-Hirschman Index using numba.
 
+    Args:
+        x (np.ndarray): A 1D numpy array of floats.
+
+    Returns:
+        float: The HHI.
+    """
+    return np.sum(x**2)
+    
 def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> float:
     """
     Computes the Herfindahl-Hirschman Index (HHI) for market concentration.
@@ -138,7 +165,7 @@ def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> f
         print(f"Sum of market shares : {np.sum(x)}.")
 
     # Compute HHI with normalization if necessary
-    hhi = np.sum(x**2)
+    hhi = _hhi(x)
 
     if normalize:
 
@@ -157,7 +184,6 @@ def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> f
             print(f"Normalized HHI : {hhi}.")
 
     return float(hhi)
-
 
 def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -> float:
     """
@@ -208,6 +234,24 @@ def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -
     # Return the sum of the k-largest market shares.
     return float(np.sum(top_k))
 
+@njit(return_type=float)
+def _shannon_entropy(x: np.ndarray) -> float:
+    """
+    Computes the Shannon Entropy using numba.
+
+    Args:
+        x (np.ndarray): A 1D numpy array of floats.
+
+    Returns:
+        float: The Shannon Entropy.
+    """
+    
+    # Normalize data for Shannon entropy to be a probability distribution
+    # As we assume all data is non negative it should sum up to 1
+    x = x / np.sum(x)
+
+    # When 0 are in the data don't comput log only return 0
+    return float(-np.sum(np.where(x > 0, x * np.log(x), 0)))
 
 def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
     """
@@ -240,13 +284,22 @@ def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
         print(f"The sum of the market shares is {np.sum(x)}.")
         print("The lower the Shannon Entropy the higher the market concentration is.")
 
-    # Normalize data for Shannon entropy to be a probability distribution
-    # As we assume all data is non negative it should sum up to 1
-    x = x / np.sum(x)
+    return _shannon_entropy(x)
 
-    # When 0 are in the data don't comput log only return 0
-    return float(-np.sum(np.where(x > 0, x * np.log(x), 0)))
+@njit(return_type=float)
+def _theil_index(x: np.ndarray) -> float:
+    """
+    Computes the Theil Index using numba.
+    
+    Args:
+        x (np.ndarray): A 1D numpy array of floats.
 
+    Returns:
+        float: The Theil Index.
+    """
+
+    mean_x=np.mean(x)
+    return float(np.sum(np.where(x > 0, (x / mean_x) * np.log(x / mean_x), 0)) / x.size)
 
 def theil_index(x: Sequence[float], verbose: bool = False) -> float:
     """
@@ -288,5 +341,4 @@ def theil_index(x: Sequence[float], verbose: bool = False) -> float:
             print("Theil Index is 0, as all market shares are 0.")
         return float(0.0)
     else:
-        theil = np.sum(np.where(x > 0, (x / mean_x) * np.log(x / mean_x), 0)) / x.size
-        return float(theil)
+        return _theil_index(x)
