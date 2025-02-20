@@ -17,5 +17,9 @@ This repo contains implementations of several economic indicators for market con
 
  ## Public Health Economics indicators
 
- This repo contains implementation of several measures of hospitals activity
+ This repo contains implementation of several measures of hospital activity, including:
+ - Number of hospital stays
+ - Economic volume
+
+ Definitions and formulas are given [here](docs/PUBLIC_HEALTH_ECONOMICS_INDICATORS.md)
  
