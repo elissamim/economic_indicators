@@ -349,5 +349,7 @@ def theil_index(x: Sequence[float], verbose:bool=False) -> float:
     if np.isnan(x).any():
         raise ValueError("""Some market shares provided are missing (NaN values).""")
 
-    return None
+    mean_x=np.mean(x)
+    if mean_x==0:
+        return 
     
