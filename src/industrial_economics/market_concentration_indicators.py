@@ -3,7 +3,8 @@ from typing import Sequence
 
 import matplotlib.pyplot as plt
 import numpy as np
-from utils import validate_market_share_data
+
+from utils import validate_market_shares_data
 
 def gini_index(x: Sequence[float], verbose: bool = False) -> float:
     """
@@ -21,12 +22,13 @@ def gini_index(x: Sequence[float], verbose: bool = False) -> float:
         ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
     """
 
-    x = validate_market_share_data(x)
+    x = validate_market_shares_data(x)
 
     if verbose:
         print("Gini index ranges from 0 (perfect equality) to 1 (perfect inequality).")
 
     # Sort the data for Gini Index computation
+    n = x.size
     total_x = x.sum()
     if total_x == 0:
         if verbose:
@@ -52,7 +54,7 @@ def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
         None.
     """
 
-    x = validate_market_share_data(x)
+    x = validate_market_shares_data(x)
 
     total_x = x.sum()
     if total_x == 0:
@@ -113,7 +115,7 @@ def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> f
         ValueError: If normalization is applied with regard to only one company.
     """
 
-    x = validate_market_share_data(x)
+    x = validate_market_shares_data(x)
 
     # Warn about shares in percentage
     if np.sum(x) > 1:
@@ -175,7 +177,7 @@ def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -
         ValueError: If `k` is not a strictly positive integer.
     """
 
-    x = validate_market_share_data(x)
+    x = validate_market_shares_data(x)
 
     # Check if k is a strictly positive integer
     if not isinstance(k, int) or k <= 0:
@@ -224,7 +226,7 @@ def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
         ValueError: If Shannon Entropy is not defined as all values are zero.
     """
 
-    x = validate_market_share_data(x)
+    x = validate_market_shares_data(x)
 
     # Check if all values are equal to zero
     if np.sum(x) == 0:
@@ -266,7 +268,7 @@ def theil_index(x: Sequence[float], verbose: bool = False) -> float:
         ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
     """
 
-    x = validate_market_share_data(x)
+    x = validate_market_shares_data(x)
 
     if verbose:
         print(f"The sum of the market shares is {np.sum(x)}.")

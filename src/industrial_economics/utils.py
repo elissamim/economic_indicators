@@ -28,8 +28,7 @@ def validate_market_shares_data(x: Sequence[float]) -> np.ndarray:
         )
 
     # Check if x is empty
-    n = x.size
-    if n == 0:
+    if x.size == 0:
         raise ValueError("""Market shares array is empty.""")
 
     # Check if all market shares are positive
