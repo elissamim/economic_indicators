@@ -11,6 +11,15 @@ Python package for Industrial Economics and Public Health Economics indicators
 - `examples` contains use cases for the different implementations
 - `docs` contains documentation with definitions and formulas
 
+ ## Installation
+
+ ```bash
+git clone <repo_url>
+pip install -e economic_indicators
+```
+
+The package can then be used like any other Python package.
+
 ## Industrial Economics indicators
 
 This repo contains implementations of several economic indicators for market concentration in Python, including:
@@ -23,15 +32,6 @@ This repo contains implementations of several economic indicators for market con
 - Shannon Entropy
 
  Definitions and formulas are given [here](docs/INDUSTRIAL_ECONOMICS_INDICATORS.md)
-
- ## Installation
-
- ```bash
-git clone <repo_url>
-pip install -e economic_indicators
-```
-
-The package can then be used like any other Python package.
 
  ## Public Health Economics indicators
 
