@@ -351,5 +351,8 @@ def theil_index(x: Sequence[float], verbose:bool=False) -> float:
 
     mean_x=np.mean(x)
     if mean_x==0:
-        return 
+        return float(0.0)
+    else:
+        theil=
+        return theil
     
