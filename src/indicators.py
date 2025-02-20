@@ -349,8 +349,17 @@ def theil_index(x: Sequence[float], verbose:bool=False) -> float:
     if np.isnan(x).any():
         raise ValueError("""Some market shares provided are missing (NaN values).""")
 
+    if verbose:
+        print(f"The sum of the market shares is {np.sum(x)}.")
+        print("The lower the Theil Index is the lower the market concentration is.")
+        print("""T=0 -> perfect competition; 0<T<0.2 -> high competition;
+              0.2<=T<0.5 -> moderate concentration; 0.5<=T<1 -> high concentration; 
+              1 <= T -> very high concentration""")
+
     mean_x=np.mean(x)
     if mean_x==0:
+        if verbose:
+            print("Theil Index is 0, as all market shares are 0.")
         return float(0.0)
     else:
         theil=np.sum(np.where(x>0,
