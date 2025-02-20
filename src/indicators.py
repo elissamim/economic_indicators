@@ -4,9 +4,10 @@ from typing import Sequence
 import matplotlib.pyplot as plt
 import numpy as np
 
-def gini_index(x: Sequence[float], verbose: bool=False) -> float:
+
+def gini_index(x: Sequence[float], verbose: bool = False) -> float:
     """
-    Returns the Gini Index of an array.
+    Returns the Gini Index of a sequence of floats.
 
     Args:
         x (Sequence[float]): Sequence of market shares.
@@ -45,16 +46,17 @@ def gini_index(x: Sequence[float], verbose: bool=False) -> float:
         print("Gini index ranges from 0 (perfect equality) to 1 (perfect inequality).")
 
     # Sort the data for Gini Index computation
-    total_x=x.sum()
-    if total_x==0:
+    total_x = x.sum()
+    if total_x == 0:
         if verbose:
             print("Gini index is 0 because all market shares are 0.")
         return float(0.0)
     else:
-        x=np.sort(x)
-        indices=np.arange(1, n+1)
-        weighted_total_x=np.sum(indices*x)
-        return float((2*weighted_total_x)/(n*total_x)-(n+1)/n)
+        x = np.sort(x)
+        indices = np.arange(1, n + 1)
+        weighted_total_x = np.sum(indices * x)
+        return float((2 * weighted_total_x) / (n * total_x) - (n + 1) / n)
+
 
 def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
     """
@@ -92,7 +94,9 @@ def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
         if verbose:
             print("All market shares are zero. Lorenz Curve is a straight line at y=0.")
         plt.plot([0, 1], [0, 0], color="#eb7d0f", label="Lorenz Curve (Zero Market)")
-        plt.plot([0, 1], [0, 1], color="#096c45", linestyle="--", label="Perfect Equality")
+        plt.plot(
+            [0, 1], [0, 1], color="#096c45", linestyle="--", label="Perfect Equality"
+        )
         plt.xlabel("Cumulative Share of Population")
         plt.ylabel("Cumulative Share of Market")
         plt.legend()
@@ -111,7 +115,7 @@ def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
     fig, ax = plt.subplots(figsize=[6, 6])
     ax.plot(pop_share, lorenz_curve, color="#eb7d0f", linewidth=2, label="Lorenz Curve")
     ax.plot([0, 1], [0, 1], color="#096c45", linestyle="--", label="Perfect Equality")
-    
+
     # Labels & legend
     ax.set_xlabel("Cumulative Share of Population")
     ax.set_ylabel("Cumulative Share of Market")
@@ -121,9 +125,10 @@ def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
 
     plt.show()
 
+
 def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> float:
     """
-    Compute the Herfindahl-Hirschman Index (HHI) for market concentration.
+    Computes the Herfindahl-Hirschman Index (HHI) for market concentration.
 
     Args:
         x (Sequence[float]): A 1D sequence of market shares (values between 0 and 1).
@@ -206,7 +211,7 @@ def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> f
 
 def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -> float:
     """
-    Return the concentration ratio of a market for a parameter n.
+    Returns the concentration ratio of a market for a parameter n.
 
     Args:
         x (Sequence[float]): Sequence of market shares.
@@ -271,9 +276,10 @@ def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -
     # Return the sum of the k-largest market shares.
     return float(np.sum(top_k))
 
+
 def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
     """
-    Compute the Shannon Entropy for market concentration.
+    Computes the Shannon Entropy for market concentration.
 
     Args:
         x (Sequence[float]): A 1D sequence of market shares.
@@ -327,9 +333,29 @@ def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
     # When 0 are in the data don't comput log only return 0
     return float(-np.sum(np.where(x > 0, x * np.log(x), 0)))
 
-def theil_index(x: Sequence[float], verbose:bool=False) -> float:
 
-    x=np.array(x, dtype=np.float64)
+def theil_index(x: Sequence[float], verbose: bool = False) -> float:
+    """
+    Computes the Theil Index for market concentration.
+
+    Args:
+        x (Sequence[float]): A 1D sequence of market shares.
+        verbose (bool, optional): If True, additional information is printed during the computation.
+                                  Defaults to False.
+
+    Returns:
+        float: Theil Index :
+                - T=0: perfect competition
+                - 0<T<0.2: high compettion
+                - 0.2<=T<0.5: moderate concentration
+                - 0.5<=T<1: high concentration
+                - 1<=T: very high concentration
+
+    Raises:
+        ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
+    """
+
+    x = np.array(x, dtype=np.float64)
 
     # Check if x is 1D array
     if x.ndim != 1:
@@ -352,17 +378,17 @@ def theil_index(x: Sequence[float], verbose:bool=False) -> float:
     if verbose:
         print(f"The sum of the market shares is {np.sum(x)}.")
         print("The lower the Theil Index is the lower the market concentration is.")
-        print("""T=0 -> perfect competition; 0<T<0.2 -> high competition;
+        print(
+            """T=0 -> perfect competition; 0<T<0.2 -> high competition;
               0.2<=T<0.5 -> moderate concentration; 0.5<=T<1 -> high concentration; 
-              1 <= T -> very high concentration""")
+              1 <= T -> very high concentration"""
+        )
 
-    mean_x=np.mean(x)
-    if mean_x==0:
+    mean_x = np.mean(x)
+    if mean_x == 0:
         if verbose:
             print("Theil Index is 0, as all market shares are 0.")
         return float(0.0)
     else:
-        theil=np.sum(np.where(x>0,
-                             (x/mean_x)*np.log(x/mean_x),
-                             0))/x.size
+        theil = np.sum(np.where(x > 0, (x / mean_x) * np.log(x / mean_x), 0)) / x.size
         return float(theil)
