@@ -14,11 +14,11 @@ Graphical representation that shows for the bottom $x$% of firms in terms of mar
 
 A perfect competitive market is represented by a Lorenz curve where the bottom $k$% have $k$% of the total market share. This is depicted by the straight line $y=x$. By contrast, a perfectly monopolistic distribution would be one in which $y=0$% for all $x<100$% and $y=100$% when $x=100$%.
 
-The Gini Index can be computed using the Lorenz Curve. If $A$ is the area between the $y=x$ line and the Lorenz Curve and $B$ is the area between the Lorenz Curve and the x-axis, then the Gini Index is given by $\frac{A}{A+B}$
+The Gini Index can be computed using the Lorenz Curve. If $A$ is the area between the $y=x$ line and the Lorenz Curve and $B$ is the area between the Lorenz Curve and the x-axis, then the Gini Index is given by $\boxed{\frac{A}{A+B}}$
 
 ## Concentration Ratio ($CR_{k}$)
 
-A concentration ratio for a pre-specified number $k$ of firms ($CR_{k}$) is the sum of the market shares of the $k$ largest companies in a market of $n$ companies. $CR_{k}$ shows the combined market share of the $k$ largest companies in the industry. The usual values for $k$ are $\lbrace 3, 4, 5, 6, 7, 8 \rbrace$ corresponding to $CR_{3}, CR_{4}, CR_{5}, CR_{6}, CR_{7}, CR_{8}$. For example, $CR_{4}$ defines the combined market share of the four largest firms in a market. The formula of the concentration ratio is given by : $CR_{k}=\sum_{i=1}^{k}s_{i}=s_{1}+s_{2}+ \ldots + s_{k}$, where $s_{j}$ is the market share of the jth-largest company in the market (for example $s_{1}$ is the market share of the largest company in the industry).
+A concentration ratio for a pre-specified number $k$ of firms ($CR_{k}$) is the sum of the market shares of the $k$ largest companies in a market of $n$ companies. $CR_{k}$ shows the combined market share of the $k$ largest companies in the industry. The usual values for $k$ are $\lbrace 3, 4, 5, 6, 7, 8 \rbrace$ corresponding to $CR_{3}, CR_{4}, CR_{5}, CR_{6}, CR_{7}, CR_{8}$. For example, $CR_{4}$ defines the combined market share of the four largest firms in a market. The formula of the concentration ratio is given by : $\boxed{CR_{k}=\sum_{i=1}^{k}s_{i}=s_{1}+s_{2}+ \ldots + s_{k}}$, where $s_{j}$ is the market share of the jth-largest company in the market (for example $s_{1}$ is the market share of the largest company in the industry).
 
 The most commonly used concentration ratios are $CR_{4}$ and $CR_{8}$, and their values range from 0 (lowest concetration level) to 1 (highest concentration level), or from 0 to 100 if market shares are expressed in percentages. The different possible concentration levels are the following :
 - Perfect concentration : from $CR_{k}=0$ to $CR_{k}=\frac{k}{n}$, all firms have equal market share
