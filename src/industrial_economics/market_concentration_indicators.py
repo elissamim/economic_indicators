@@ -19,8 +19,8 @@ def _gini_index(x: np.ndarray) -> float:
         float: The Gini Index.
     """
 
-    n=x.size
-    total_x = x.sum()
+    n=len(x)
+    total_x = np.sum(x)
     x = np.sort(x)
     indices = np.arange(1, n + 1)
     weighted_total_x = np.sum(indices * x)
