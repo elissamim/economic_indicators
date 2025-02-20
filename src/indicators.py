@@ -3,7 +3,7 @@ from typing import Sequence
 
 import matplotlib.pyplot as plt
 import numpy as np
-
+from utils import validate_market_share_data
 
 def gini_index(x: Sequence[float], verbose: bool = False) -> float:
     """
@@ -21,26 +21,7 @@ def gini_index(x: Sequence[float], verbose: bool = False) -> float:
         ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
     """
 
-    x = np.array(x, dtype=np.float64)
-
-    # Check if x is 1D array
-    if x.ndim != 1:
-        raise ValueError(
-            """The market shares data provided should be one-dimensional."""
-        )
-
-    # Check if x is empty
-    n = x.size
-    if n == 0:
-        raise ValueError("""Market shares array is empty.""")
-
-    # Check if all market shares are positive
-    if (x < 0).any():
-        raise ValueError("""Some market shares provided are strictly negative.""")
-
-    # Check if data is missing
-    if np.isnan(x).any():
-        raise ValueError("""Some market shares provided are missing (NaN values).""")
+    x = validate_market_share_data(x)
 
     if verbose:
         print("Gini index ranges from 0 (perfect equality) to 1 (perfect inequality).")
@@ -71,23 +52,7 @@ def lorenz_curve(x: Sequence[float], verbose: bool = False) -> None:
         None.
     """
 
-    x = np.array(x, dtype=np.float64)
-
-    # Check if x is 1D array
-    if x.ndim != 1:
-        raise ValueError("The market shares data provided should be one-dimensional.")
-
-    # Check if x is empty
-    if x.size == 0:
-        raise ValueError("Market shares array is empty.")
-
-    # Check if all market shares are positive
-    if (x < 0).any():
-        raise ValueError("Some market shares provided are strictly negative.")
-
-    # Check if data is missing
-    if np.isnan(x).any():
-        raise ValueError("Some market shares provided are missing (NaN values).")
+    x = validate_market_share_data(x)
 
     total_x = x.sum()
     if total_x == 0:
@@ -148,25 +113,7 @@ def hhi(x: Sequence[float], normalize: bool = False, verbose: bool = False) -> f
         ValueError: If normalization is applied with regard to only one company.
     """
 
-    x = np.array(x, dtype=np.float64)
-
-    # Check if x is 1D array
-    if x.ndim != 1:
-        raise ValueError(
-            """The market shares data provided should be one-dimensional."""
-        )
-
-    # Check if x is empty
-    if x.size == 0:
-        raise ValueError("""Market shares array is empty.""")
-
-    # Check if all market shares are positive
-    if (x < 0).any():
-        raise ValueError("""Some market shares provided are strictly negative.""")
-
-    # Check if data is missing
-    if np.isnan(x).any():
-        raise ValueError("""Some market shares provided are missing (NaN values).""")
+    x = validate_market_share_data(x)
 
     # Warn about shares in percentage
     if np.sum(x) > 1:
@@ -228,25 +175,7 @@ def concentration_ratio(x: Sequence[float], k: int = 3, verbose: bool = False) -
         ValueError: If `k` is not a strictly positive integer.
     """
 
-    x = np.array(x, dtype=np.float64)
-
-    # Check if x is 1D array
-    if x.ndim != 1:
-        raise ValueError(
-            """The market shares data provided should be one-dimensional."""
-        )
-
-    # Check if x is empty
-    if x.size == 0:
-        raise ValueError("""Market shares array is empty.""")
-
-    # Check if all market shares are positive
-    if (x < 0).any():
-        raise ValueError("""Some market shares provided are strictly negative.""")
-
-    # Check if data is missing
-    if np.isnan(x).any():
-        raise ValueError("""Some market shares provided are missing (NaN values).""")
+    x = validate_market_share_data(x)
 
     # Check if k is a strictly positive integer
     if not isinstance(k, int) or k <= 0:
@@ -295,25 +224,7 @@ def shannon_entropy(x: Sequence[float], verbose: bool = False) -> float:
         ValueError: If Shannon Entropy is not defined as all values are zero.
     """
 
-    x = np.array(x, dtype=np.float64)
-
-    # Check if x is 1D array
-    if x.ndim != 1:
-        raise ValueError(
-            """The market shares data provided should be one-dimensional."""
-        )
-
-    # Check if x is empty
-    if x.size == 0:
-        raise ValueError("""Market shares array is empty.""")
-
-    # Check if all market shares are positive
-    if (x < 0).any():
-        raise ValueError("""Some market shares provided are strictly negative.""")
-
-    # Check if data is missing
-    if np.isnan(x).any():
-        raise ValueError("""Some market shares provided are missing (NaN values).""")
+    x = validate_market_share_data(x)
 
     # Check if all values are equal to zero
     if np.sum(x) == 0:
@@ -355,33 +266,17 @@ def theil_index(x: Sequence[float], verbose: bool = False) -> float:
         ValueError: If `x` is not a 1D array, is empty, contains negative values, or NaN values.
     """
 
-    x = np.array(x, dtype=np.float64)
-
-    # Check if x is 1D array
-    if x.ndim != 1:
-        raise ValueError(
-            """The market shares data provided should be one-dimensional."""
-        )
-
-    # Check if x is empty
-    if x.size == 0:
-        raise ValueError("""Market shares array is empty.""")
-
-    # Check if all market shares are positive
-    if (x < 0).any():
-        raise ValueError("""Some market shares provided are strictly negative.""")
-
-    # Check if data is missing
-    if np.isnan(x).any():
-        raise ValueError("""Some market shares provided are missing (NaN values).""")
+    x = validate_market_share_data(x)
 
     if verbose:
         print(f"The sum of the market shares is {np.sum(x)}.")
-        print("The lower the Theil Index is the lower the market concentration is.")
         print(
-            """T=0 -> perfect competition; 0<T<0.2 -> high competition;
-              0.2<=T<0.5 -> moderate concentration; 0.5<=T<1 -> high concentration; 
-              1 <= T -> very high concentration"""
+            """The lower the Theil Index is the lower the market concentration is.
+               - T=0 -> perfect competition
+               - 0<T<0.2 -> high competition
+               - 0.2<=T<0.5 -> moderate concentration
+               - 0.5<=T<1 -> high concentration
+               - 1 <= T -> very high concentration"""
         )
 
     mean_x = np.mean(x)
