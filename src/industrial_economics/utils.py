@@ -1,5 +1,7 @@
-import numpy as np
 from typing import Sequence
+
+import numpy as np
+
 
 def validate_market_shares_data(x: Sequence[float]) -> np.ndarray:
     """
@@ -18,7 +20,7 @@ def validate_market_shares_data(x: Sequence[float]) -> np.ndarray:
     Raises:
         ValueError: If any validation condition is violated.
     """
-    
+
     x = np.array(x, dtype=np.float64)
 
     # Check if x is 1D array

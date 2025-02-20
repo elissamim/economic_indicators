@@ -6,6 +6,7 @@ import numpy as np
 
 from utils import validate_market_shares_data
 
+
 def gini_index(x: Sequence[float], verbose: bool = False) -> float:
     """
     Returns the Gini Index of a sequence of floats.
